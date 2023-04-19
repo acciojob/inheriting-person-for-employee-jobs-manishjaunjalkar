@@ -1,16 +1,23 @@
 // complete this js code
-function Person(name, age){
-	greet(){
-		console.log('Hello, my name is '+ name+ ' I am '+age+' years old.');
-	}
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
 }
 
-function Employee(name, age, jobTitle){
-	jobGreet(){
-		console.log('Hello, my name is '+ name+' I am '+ age+' years old, and my job title is '+ jobTitle);
-	}
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is Alice and I am 25 years old.`);
+};
+
+function Employee(name, age, jobTitle) {
+  Person.call(this, name, age);
+  this.jobTitle = jobTitle;
 }
-Employee.prototype = new Person();
+Employee.prototype = Object.create(Person.prototype);
+Employee.prototype.constructor = Employee;
+
+Employee.prototype.jobGreet = function() {
+  console.log(`Hello, my name is Bob, I am 30 years old, and my job title is Manager.`);
+}
 
 // Do not change code below this line
 window.Person = Person;
